@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd   
+http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd      
+http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<broker xmlns="http://activemq.apache.org/schema/core" useJmx="true"
+		brokerName="brokerAxonAuctionExample" destroyApplicationContextOnStop="true">
+
+		<managementContext>
+			<managementContext createConnector="true" />
+		</managementContext>
+
+		<persistenceAdapter>
+			<kahaPersistenceAdapter directory="activemq-data"
+				maxDataFileLength="1048576" />
+		</persistenceAdapter>
+	
+		<transportConnectors>
+			<transportConnector name="tcp" uri="tcp://localhost:61616" />
+		</transportConnectors>
+
+	</broker>
+
+</beans>

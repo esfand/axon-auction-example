@@ -1,0 +1,27 @@
+<exceptions>
+
+	<command>
+	
+		<exception name="UserNameEmailCombinationAlreadyExistsException" message="The combination of user name and email is already registered" />
+		<exception name="UserEmailAlreadyExistsException" message="The email address is already registered by another user" />
+		<exception name="UserNameAlreadyExistsException" message="The name is already used by another user" />
+		<exception name="CategoryNameAlreadyExistException" message="The category name already exists" />
+		<exception name="PasswordMismatchException" message="The old password is not equal to the stored password" />
+		<exception name="SecurityTokenException" message="The given token was not equal to the user's verification token" />
+		<exception name="IllegalCategoryStateException" message="The category's state was ${current} and not as expected ${expected}" comment="The category's state was not as expected." >
+			<property no="1" name="current" type="CategoryState" nullable="false" comment="Current state."/>
+			<property no="2" name="expected" type="CategoryState" multiplicity="ONE_OR_MORE" nullable="false" comment="Expected states."/>
+		</exception>
+		<exception name="IllegalUserStateException" message="The user's state was ${current} and not as expected ${expected}" comment="The user's state was not as expected.">
+			<property no="1" name="current" type="UserState" nullable="false" comment="Current state."/>
+			<property no="2" name="expected" type="UserState" multiplicity="ONE_OR_MORE" nullable="false" comment="Expected states."/>
+		</exception>
+		
+	</command>
+
+	<query>
+	
+	</query>
+
+</exceptions>
+

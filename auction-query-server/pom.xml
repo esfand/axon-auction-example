@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.fuin.auction</groupId>
+		<artifactId>auction-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>auction-query-server</artifactId>
+	<version>0.2.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>Axon Auction Example - Query Server</name>
+	<url>http://code.google.com/p/axon-auction-example/wiki/QueryServer</url>
+
+	<dependencies>
+
+		<!-- RUNTIME -->
+
+		<dependency>
+			<groupId>org.fuin.auction</groupId>
+			<artifactId>auction-common</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.auction</groupId>
+			<artifactId>auction-message-api</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.fuin.auction</groupId>
+			<artifactId>auction-query-api</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>1.5.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+			<version>1.5.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.caucho</groupId>
+			<artifactId>hessian</artifactId>
+			<version>3.1.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.0.2.GA</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derbyclient</artifactId>
+			<version>10.6.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>jms</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>${activemq.version}</version>
+		</dependency>
+
+		<!--dependency>
+			<groupId>com.trg</groupId>
+			<artifactId>trg-dao</artifactId>
+			<version>0.5.1</version>
+		</dependency-->
+		<!--dependency>
+			<groupId>com.trg</groupId>
+			<artifactId>trg-search-jpa-hibernate</artifactId>
+			<version>0.5.1</version>
+		</dependency-->
+<!-- This first dependency includes all the JPA implementations for the DAOs -->
+<dependency>
+        <groupId>com.googlecode.genericdao</groupId>
+        <artifactId>dao</artifactId>
+        <version>1.2.0</version> <!-- use current version -->
+</dependency>
+<!-- This second one includes the Hibernate Entity Manager plugin for the framework -->
+<dependency>
+        <groupId>com.googlecode.genericdao</groupId>
+        <artifactId>search-jpa-hibernate</artifactId>
+        <version>1.2.0</version> <!-- use current version -->
+</dependency>
+
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.3.1</version>
+		</dependency>
+
+		<!-- TEST -->
+
+	</dependencies>
+
+	<repositories>
+
+		<repository>
+			<id>trg-dao-repo</id>
+			<name>Repository for The Revere Group's Hibernate Generic DAO framework</name>
+			<url>http://hibernate-generic-dao.googlecode.com/svn/trunk/maven-repo/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+<repository>
+        <id>sonatype-oss-repo</id>
+        <name>Sonatype Open Source maven snapshot repo</name>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+</repository>
+
+	</repositories>
+</project>

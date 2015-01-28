@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<menu>
+
+  <menu label=" Home" path="home.htm" imageSrc="/assets/images/home.png">
+    <menu label="Axon Auction Example" path="index.htm"/>
+  </menu>
+
+</menu>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<import resource="classpath:jms-context.xml" />
+
+	<context:component-scan base-package="org.fuin.auction.command.server,org.fuin.axon.support.base" />
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:mail.properties" />
+	</bean>
+
+	<bean id="mailProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="singleton" value="true" />
+		<property name="properties">
+			<props>
+				<prop key="sender">${mail.sender}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="commandBus" class="org.axonframework.commandhandling.SimpleCommandBus" />
+
+	<bean
+		class="org.axonframework.eventhandling.annotation.AnnotationEventListenerBeanPostProcessor">
+		<property name="executor" ref="taskExecutor" />
+	</bean>
+
+	<bean
+		class="org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor">
+		<property name="commandBus" ref="commandBus" />
+	</bean>
+
+	<bean id="eventBus" class="org.axonframework.eventhandling.SimpleEventBus" />
+
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="2" />
+		<property name="maxPoolSize" value="5" />
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />
+	</bean>
+
+	<bean id="userRepository"
+		class="org.axonframework.eventsourcing.GenericEventSourcingRepository">
+		<constructor-arg value="org.fuin.auction.command.server.domain.User" />
+		<property name="eventBus" ref="eventBus" />
+		<property name="eventStore" ref="eventStore" />
+	</bean>
+
+	<bean id="categoryRepository"
+		class="org.axonframework.eventsourcing.GenericEventSourcingRepository">
+		<constructor-arg value="org.fuin.auction.command.server.domain.Category" />
+		<property name="eventBus" ref="eventBus" />
+		<property name="eventStore" ref="eventStore" />
+	</bean>
+	
+	<bean id="eventStore" class="org.axonframework.eventstore.fs.FileSystemEventStore">
+		<property name="baseDir">
+			<bean class="java.io.File">
+				<constructor-arg value="${java.io.tmpdir}/axon-auction-example/" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.smtp.host}" />
+		<property name="username" value="${mail.smtp.username}" />
+		<property name="password" value="${mail.smtp.password}" />
+	</bean>
+
+	<bean id="velocityEngine"
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<value>
+				resource.loader=class
+				class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+			</value>
+		</property>
+	</bean>
+
+   <bean id="queryService"
+      class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+      <property name="serviceUrl" value="http://localhost:8080/auction-query-server/AuctionQueryService" />
+      <property name="serviceInterface" value="org.fuin.auction.query.api.AuctionQueryService" />
+   </bean>
+
+</beans>

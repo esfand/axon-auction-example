@@ -1,0 +1,11 @@
+<map>
+	<type>org.fuin.auction.command.api.base.RegisterUserCommand</type>
+	<string>instanceVersion</string>
+	<int>99</int>
+	<string>userName</string>
+	<string>test</string>
+	<string>password</string>
+	<string>12345678</string>
+	<string>email</string>
+	<string>abc@def.ghi</string>
+</map>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<click-app charset="UTF-8">
+	<pages package="org.fuin.auction.client.click" automapping="true"/>
+</click-app> 

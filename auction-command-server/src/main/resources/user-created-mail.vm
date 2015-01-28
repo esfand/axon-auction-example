@@ -1,0 +1,13 @@
+<html>
+<body>
+Welcome ${userName},
+
+Thank you for registering with your email ${email}!
+
+To complete the registration process by verifying your email 
+<a href="http://localhost:8080/auction-client-click/verify-email.htm?token=${securityToken}">click here</a>
+
+Cheers,
+The Axon Auction Example Team
+</body>
+</html>

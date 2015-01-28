@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <title>Axon Auction Example - $title</title>
+    <link rel="stylesheet" type="text/css" href="$context/assets/style.css" title="Style"/>
+    $headElements
+  </head>
+  <body>
+  
+     <div class="page">
+     
+	     <div id="header">
+	        <div id="menu">
+            #if (${rootMenu})
+              #writeMenu(${rootMenu})
+            #end
+	        </div>
+			<div id="top">
+			  <span id="logo">
+			     <img src="$context/assets/auction-logo.png" alt="Axon Auction Example"><br>
+			     Axon Auction Example
+			  </span>
+			  <span id="state">              
+                 Welcome! <a href="#">Sign in</a> or <a href="$context/register-user.htm">register</a>.
+              </span>
+			</div>
+            <div id="search">
+              $searchForm
+            </div>            
+	     </div>
+	     
+	     <div class="content">
+	        <h2>$title</h2>
+            #parse($path)
+	     </div>
+	     
+     </div>
+     
+     $jsElements
+          
+  </body>
+</html> 

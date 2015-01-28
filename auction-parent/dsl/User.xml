@@ -1,0 +1,122 @@
+<aggregate name="User" comment="Represents a user in the auction system." type="UUID" version="100">
+ 
+	<property no="1" name="userName" type="UserName" nullable="false" comment="Human readable unique name of the user.">
+		<label text="User name"/>
+		<textfield width="50"/>
+	</property>
+	<property no="2" name="email" type="EmailAddress" nullable="false" comment="Email address.">
+		<label text="Email address"/>
+		<textfield width="50"/>
+	</property>
+	<property no="3" name="userState" type="UserState" nullable="false" comment="Current state of the user.">
+		<label text="State"/>
+		<textfield width="50"/>
+	</property>
+	<property no="4" name="password" type="PasswordSha512" nullable="false" comment="Hash of the user's password."/>
+	<property no="5" name="verificationToken" type="SecurityToken" nullable="false" comment="Generated security token to verify the email address.">
+		<label text="Security Token"/>
+		<textfield width="100"/>
+	</property>
+  
+	<operations>
+  
+    	<constructor name="RegisterUserCommand" comment="Registers a new user." version="100">
+    
+    		<properties>
+	      		<property no="1" name="userName" type="@userName"/>
+	      		<property no="2" name="password" type="Password" nullable="false" comment="Clear text password.">
+					<label text="Password"/>
+					<textfield/>
+				</property>
+	      		<property no="3" name="email" type="@email"/>
+      		</properties>
+      		<errors>
+	      		<error no="101" name="RegisterUserFailedUserEmailAlreadyExistsResult" exception="UserEmailAlreadyExistsException" version="100"/>
+	      		<error no="102" name="RegisterUserFailedUserNameEmailCombinationAlreadyExistsResult" exception="UserNameEmailCombinationAlreadyExistsException" version="100"/>
+	      		<error no="103" name="RegisterUserFailedUserNameAlreadyExistsResult" exception="UserNameAlreadyExistsException" version="100"/>
+      		</errors>
+      		<success no="104" name="UserCreatedResult" message="You registered successfully! A confirmation email has been sent to you." comment="A new user was successfully created."  version="100">
+				<property no="1" name="id" type="UUID" comment="Unique identifier." />
+      		</success>
+     
+      		<event name="UserCreatedEvent" comment="A new user was created." version="100">
+	      
+	      		<property no="1" name="userName" type="@userName"/>
+          		<property no="2" name="password" type="PasswordSha512" nullable="false" comment="Password hash."/>
+          		<property no="3" name="email" type="@email"/>
+          		<property no="4" name="securityToken" nullable="false" type="/verificationToken"/>          
+	      
+	      		<message name="UserRegisteredMessage" comment="A new user was created." version="100">      
+			      	<property no="1" name="userName" type="@userName"/>
+	          		<property no="2" name="password" type="@password"/>
+	        	  	<property no="3" name="email" type="@email"/>
+          			<property no="4" name="securityToken" type="@securityToken"/>          
+	    	  	</message>
+     
+      		</event>
+      
+    	</constructor>
+    
+    
+		<command name="UserChangePasswordCommand" method="changePassword" comment="Changes the user's password." version="100">
+			
+			<properties>
+		    	<property name="oldPassword" type="Password" nullable="false" traceExclude="true" comment="Old clear text password.">
+					<label text="Old password"/>
+					<textfield width="50"/>
+		    	</property>
+				<property name="newPassword" type="Password" nullable="false" traceExclude="true" comment="New clear text password.">
+					<label text="New password"/>
+					<textfield width="50"/>
+				</property>
+			</properties>
+
+			<errors>		
+				<error no="105" name="UserChangePasswordMismatchResult" exception="PasswordMismatchException" comment="The user's password was not equal to the old password sent with the command."  version="100"/>
+      		</errors>
+      		<success no="106" name="UserPasswordChangedResult" message="The password was successfully changed" comment="The stored and the old password sent with the command matched and the user's password was changed."  version="100"/>
+	
+			<event name="UserPasswordChangedEvent" comment="The password of a user was changed." version="100">
+
+				<property name="oldPassword" type="PasswordSha512" nullable="false" comment="Old password hash."/>
+				<property name="newPassword" type="PasswordSha512" nullable="false" comment="New password hash."/>
+				
+				<message name="UserPasswordChangedMessage" comment="The password of a user was changed." version="100">
+					<property name="password" type="@newPassword"/>
+				</message>
+				
+			</event>
+	
+		</command>
+		
+		<command name="UserVerifyEmailCommand" method="verifyEmail" excludeAggregateId="true" comment="Verifies the user's email by checking the verification token." version="100">
+
+			<properties>	
+				<property name="securityToken" type="String" nullable="false" comment="Token to compare with the internal token.">
+					<label text="Security Token"/>
+					<textfield width="100"/>
+				</property>
+			</properties>
+	
+			<errors>
+				<error no="107" name="UserVerifyEmailFailedIllegalStateResult" exception="IllegalUserStateException" comment="The state of the user was not NEW or RESET." version="100">
+					<property no="1" name="current" type="UserState" nullable="false" comment="Current state."/>
+					<property no="2" name="expected" type="UserState" multiplicity="ONE_OR_MORE" nullable="false" comment="Expected states."/>
+				</error>
+				<error no="108" name="UserVerifyEmailFailedTokenWrongResult" exception="SecurityTokenException" comment="The security token was not equal to the one sent with email."  version="100"/>
+			</errors>
+			<success no="109" name="UserEmailVerifiedResult" message="Your email address was confirmed successfully" comment="The security token was equal to the one sent to the user by email."  version="100" />
+	
+			<event name="UserEmailVerifiedEvent" comment="The email address of a user was verified." version="100">
+				
+				<message name="UserEmailVerifiedMessage" comment="The email address of a user was verified." version="100">
+
+				</message>					
+				
+			</event>
+					
+    	</command>
+    
+	</operations>
+  
+</aggregate>

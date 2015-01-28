@@ -1,0 +1,52 @@
+html {
+     overflow: auto;
+}
+
+html, body {
+  height: 95%;
+}
+
+body {
+	font-family: Arial, Helvetica, "Sans Serif";
+	font-size: 1em;
+}
+
+select {
+	height: 1.5em;
+}
+
+#msg {
+	background-color: #f0f0f0;
+	border: thin solid navy;
+	margin: 1em;
+	margin-left: 0em;
+	margin-right: 2em;
+	padding: 1em;
+}
+
+#top {
+}
+
+#logo {
+	font-size:150%;
+	color: navy;
+}
+
+#state {
+	margin-left: 2em;
+}
+
+#search {
+	margin-top: 1em;
+	border: thin solid navy;
+}
+
+#searchCategory {
+	height: 1.6em;
+	width: 20em;
+	vertical-align: middle;
+}
+
+#content {
+}
+

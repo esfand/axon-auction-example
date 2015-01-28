@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<import resource="classpath:jms-context.xml" />
+
+	<context:component-scan base-package="org.fuin.auction.query.server" />
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:database.properties" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="axonAuctionExample" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="${hibernate.sql.dialect}" />
+				<property name="generateDdl" value="${hibernate.sql.generateddl}" />
+				<property name="showSql" value="${hibernate.sql.show}" />
+			</bean>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverclass}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxPoolSize" value="15" />
+		<property name="minPoolSize" value="5" />
+	</bean>
+
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+
+	<bean
+		class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
+		<property name="transactionInterceptor" ref="txInterceptor" />
+	</bean>
+
+	<bean id="txInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="txManager" />
+		<property name="transactionAttributeSource">
+			<bean
+				class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+		</property>
+	</bean>
+
+	<bean id="searchProcessor" class="com.trg.search.jpa.JPASearchProcessor">
+		<constructor-arg ref="metadataUtil" />
+	</bean>
+	
+	<bean id="metadataUtil"
+		class="com.trg.search.jpa.hibernate.HibernateMetadataUtil"
+		factory-method="getInstanceForEntityManagerFactory">
+		<constructor-arg ref="entityManagerFactory" />
+	</bean>
+	
+</beans>

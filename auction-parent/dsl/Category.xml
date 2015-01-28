@@ -1,0 +1,72 @@
+<aggregate name="Category" comment="Represents an auction category." type="LONG" version="100">
+ 
+	<property no="1" name="name" type="CategoryName" nullable="false" comment="Decriptive name.">
+		<label text="Category name"/>
+		<textfield/>
+	</property>
+	<property no="2" name="state" type="CategoryState" nullable="false" comment="Current state.">
+		<label text="State"/>
+	</property>
+ 
+ 	<operations>
+ 	
+    	<constructor name="CreateCategoryCommand" comment="Creates a new category." version="100">    	
+      		<properties>
+      			<property no="1" name="name" type="@name"/>
+      		</properties>
+      		
+      		<errors>
+      			<error no="110" name="CreateCategoryFailedNameAlreadyExistResult" exception="CategoryNameAlreadyExistException" version="100"/>
+      		</errors>
+      		<success no="111" name="CategoryCreatedResult" message="The new category was created successfully" comment="A new category was created and is in state ACTIVE."  version="100">
+      			<property no="1" name="id" type="Long" comment="Unique identifier." />
+      		</success>
+      		
+      		<event name="CategoryCreatedEvent" comment="A new category was created." version="100">	      
+	      		<property no="1" name="name" type="@name"/>
+	      	
+	      		<message name="CategoryCreatedMessage" comment="A new category was created." version="100">      
+			      	<property no="1" name="name" type="@name"/>
+			    </message>
+			    
+	      	</event>
+      		
+		</constructor> 	
+ 	
+		<command name="MarkCategoryForDeletionCommand" method="markForDeletion" comment="Marks an existing category for deletion." version="100">
+		
+      		<errors>
+      			<error no="112" name="MarkCategoryForDeletionFailedIllegalStateResult" exception="IllegalCategoryStateException" comment="The category was not in an active state."  version="100">
+					<property no="1" name="current" type="CategoryState" nullable="false" comment="Current state."/>
+					<property no="2" name="expected" type="CategoryState" multiplicity="ONE_OR_MORE" nullable="false" comment="Expected states."/>
+      			</error>
+      		</errors>
+      		<success no="113" name="CategoryMarkedForDeletionResult" message="The category was successfully marked for deletion" comment="The category is now in state MARKED_FOR_DELETION."  version="100"/>
+
+			<event name="CategoryMarkedForDeletionEvent" comment="A category was marked as deleted." version="100">
+	      		<message name="CategoryMarkedForDeletionMessage" comment="A category was marked as deleted." version="100">
+	      		</message>      
+			</event>	      
+		
+		</command>
+		
+		<command name="DeleteCategoryCommand" method="delete" comment="Deletes a category that is marked for deletion." version="100">
+		
+      		<errors>
+	      		<error no="115" name="DeleteCategoryFailedIllegalStateResult" exception="IllegalCategoryStateException" comment="The category is not in state MARKED_FOR_DELETION."  version="100">
+					<property no="1" name="current" type="CategoryState" nullable="false" comment="Current state."/>
+					<property no="2" name="expected" type="CategoryState" multiplicity="ONE_OR_MORE" nullable="false" comment="Expected states."/>
+	      		</error>
+	      	</errors>
+      		<success no="116" name="CategoryDeletedResult" message="The category was successfully deleted" comment="The category is now in state DELETED."  version="100"/>
+
+			<event name="CategoryDeletedEvent" comment="A category was deleted." version="100">
+	      		<message name="CategoryDeletedMessage" comment="A category was deleted." version="100">
+	      		</message>      
+			</event>	      
+		
+		</command>
+		
+ 	</operations>
+  
+</aggregate>

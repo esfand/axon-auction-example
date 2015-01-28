@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dependencies>
+	<!--
+		Project dependency definition for use with AssertDependencies -
+		http://www.fuin.org/units4j/
+	-->
+
+	<!-- All classes are allowed to use this -->
+	<alwaysAllowed>
+	    <dependsOn package="com.mchange.v2.c3p0"/>
+		<dependsOn package="java.beans" />
+		<dependsOn package="java.io" />
+		<dependsOn package="java.sql" />
+		<dependsOn package="java.util" />
+		<dependsOn package="javax.inject" />
+		<dependsOn package="javax.jms" />
+		<dependsOn package="javax.mail" />
+		<dependsOn package="javax.sql" />
+		<dependsOn package="javax.validation" />
+		<dependsOn package="org.apache.commons.lang.builder" />
+		<dependsOn package="org.apache.velocity" />
+		<dependsOn package="org.axonframework"/>
+		<dependsOn package="org.fuin.auction.common" />
+		<dependsOn package="org.fuin.objects4j" />
+		<dependsOn package="org.slf4j" />
+		<dependsOn package="org.springframework" />
+	</alwaysAllowed>
+
+	<!-- It's forbidden for all classes to use this (in production code) -->
+	<alwaysForbidden />
+
+	<!--
+		Packages are ONLY allowed to use the following packages (all other
+		packages are forbidden)
+	-->
+	<allowed>
+		<package name="org.fuin.auction.command.server.base">
+			<dependsOn package="org.fuin.auction.command.api" />
+			<dependsOn package="org.fuin.auction.message.api" />
+			<dependsOn package="org.fuin.auction.query.api" />
+			<dependsOn package="org.fuin.auction.command.server.domain" />
+			<dependsOn package="org.fuin.auction.command.server.events" />
+			<dependsOn package="org.fuin.auction.command.server.utils" />
+			<dependsOn package="org.fuin.axon.support" />
+		</package>
+	</allowed>
+
+	<!--
+		Packages are NOT allowed to use the following ones (all other packages
+		are allowed)
+	-->
+	<forbidden>
+		<package name="org.fuin.auction.command.server.domain">
+			<notDependsOn package="org.fuin.auction.command.api" comment="Domain should not depends on commands" />
+			<notDependsOn package="org.fuin.auction.message.api" comment="Domain should not depends on messages" />
+		</package>
+	</forbidden>
+
+</dependencies>

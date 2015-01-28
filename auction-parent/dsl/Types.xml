@@ -1,0 +1,15 @@
+<external-types>
+
+	<type name="UserName" fullQualifiedName="org.fuin.objects4j.UserName" />
+	<type name="EmailAddress" fullQualifiedName="org.fuin.objects4j.EmailAddress" />
+	<type name="UserState" fullQualifiedName="org.fuin.auction.common.UserState" />
+	<type name="PasswordSha512" fullQualifiedName="org.fuin.objects4j.PasswordSha512" />
+	<type name="Password" fullQualifiedName="org.fuin.objects4j.Password" />
+	<type name="SecurityToken" fullQualifiedName="org.fuin.objects4j.SecurityToken" />
+	<type name="String" fullQualifiedName="java.lang.String" />
+	<type name="Long" fullQualifiedName="java.lang.Long" />
+	<type name="UUID" fullQualifiedName="java.util.UUID" />
+	<type name="CategoryName" fullQualifiedName="org.fuin.auction.common.CategoryName" />
+	<type name="CategoryState" fullQualifiedName="org.fuin.auction.common.CategoryState" />
+
+</external-types>

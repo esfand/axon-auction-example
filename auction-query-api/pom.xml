@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.fuin.auction</groupId>
+		<artifactId>auction-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>auction-query-api</artifactId>
+	<version>0.2.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Axon Auction Example - Query API</name>
+	<url>http://code.google.com/p/axon-auction-example/wiki/QueryAPI</url>
+
+	<build>
+		<finalName>auction-query-api-0.1.0</finalName>
+	</build>
+
+	<dependencies>
+
+		<!-- RUNTIME -->
+		
+		<dependency>
+			<groupId>org.fuin.auction</groupId>
+			<artifactId>auction-common</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- TEST -->
+
+	</dependencies>
+
+</project>

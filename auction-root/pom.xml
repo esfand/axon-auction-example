@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.fuin.auction</groupId>
+	<artifactId>auction-root</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>Axon Auction Example - Root</name>
+	<description>Builds all sub projects together</description>	
+
+	<modules>
+		<module>../auction-parent</module>
+		<module>../axon-support</module>
+		<module>../auction-common</module>
+		<module>../auction-command-api</module>
+		<module>../auction-message-api</module>
+		<module>../auction-query-api</module>
+		<module>../auction-client-common</module>
+		<module>../auction-client-click</module>
+		<module>../auction-client-swing</module>
+		<module>../auction-command-server</module>
+		<module>../auction-query-server</module>
+	</modules>
+
+</project>

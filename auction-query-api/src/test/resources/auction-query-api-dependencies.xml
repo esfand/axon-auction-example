@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dependencies>
+  <!-- Project dependency definition for use with AssertDependencies - http://www.fuin.org/units4j/ -->
+  
+  <!-- All classes are allowed to use this -->
+  <alwaysAllowed/>
+  
+  <!-- It's forbidden for all classes to use this (in production code) -->
+  <alwaysForbidden/>
+  
+  <!-- Packages are ONLY allowed to use the following packages (all other packages are forbidden) -->
+  <allowed/>
+
+  <!-- Packages are NOT allowed to use the following ones (all other packages are allowed) -->  
+  <forbidden>
+    <package name="org.fuin.auction.query.api" comment="Query API is only allowed to access Common">
+      <notDependsOn package="org.fuin.auction.query.server"/>
+      <notDependsOn package="org.fuin.auction.command"/>    
+      <notDependsOn package="org.fuin.auction.message"/>
+      <notDependsOn package="org.fuin.auction.client"/>
+    </package>
+  </forbidden>
+  
+</dependencies>
